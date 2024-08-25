@@ -136,7 +136,37 @@ function NavBar() {
           </Box>
         </Toolbar>
       </Container>
+
+
+      {/* failed my card */}
+      <Box sx={{ flexGrow: 1, height: '100vh', padding: 2 }}>
+      <Grid container spacing={2} sx={{ height: '100%' }}>
+        {/* First div - Takes 60% width on small screens */}
+        <Grid item xs={12} md={7.2} sx={{ backgroundColor: 'lightblue' }}>
+          <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            First Div
+          </Box>
+        </Grid>
+
+        {/* Second div - Takes 40% width on small screens */}
+        <Grid item xs={12} md={4.8} sx={{ backgroundColor: 'lightgreen' }}>
+          <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            Second Div
+          </Box>
+        </Grid>
+
+        {/* Third div - Hidden on small screens */}
+        <Grid item xs={12} md={12} sx={{ display: { xs: 'none', md: 'flex' }, backgroundColor: 'lightcoral' }}>
+          <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            Third Div
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
     </AppBar>
   );
+
+
+  // failed my cards 
 }
 export default NavBar;

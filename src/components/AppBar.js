@@ -17,13 +17,37 @@ import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Grid } from "@mui/material";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { Card, CardContent, Grid } from "@mui/material";
+import { BorderLeft, BorderTop } from "@mui/icons-material";
+import MyCard from "./MyCard";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
+  const timeoutRef = React.useRef(null);
+
+  const handleProductClick = () => {
+    setIsOpen(!isOpen); // Toggle the state
+  };
+
+  const handleMouseEnter = () => {
+    isOpen && setIsHovered(true); // Set hover state to true
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current); // Clear the timeout if mouse re-enters
+    }
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsHovered(false);
+      setIsOpen(!isOpen);
+    }, 300);
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -34,7 +58,10 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="relative"  style={{ backgroundColor: "transparent",marginTop:"-3rem" }}>
+    <AppBar
+      position="relative"
+      style={{ backgroundColor: "transparent", marginTop: "-3rem" }}
+    >
       <Grid container sx={{ display: { xs: "none", md: "flex" } }}>
         {/* First div: 25% width */}
         <Grid item xs={3} sx={{ flexBasis: "25%" }}>
@@ -74,7 +101,7 @@ function ResponsiveAppBar() {
             }}
           >
             <Button
-              onClick={() => {}}
+              onClick={handleProductClick}
               sx={{
                 marginBottom: "5rem",
                 alignItems: "start",
@@ -82,6 +109,7 @@ function ResponsiveAppBar() {
                 paddingBottom: "1.4rem",
                 color: "white",
                 position: "relative",
+                gap: "0.5rem",
                 "&:after": {
                   content: '""',
                   display: "block",
@@ -102,8 +130,38 @@ function ResponsiveAppBar() {
                 },
               }}
             >
-              Products
+              <Typography variant="button">Products</Typography>
+              <ArrowDownwardIcon
+                sx={{
+                  transition: "transform 0.2s ease-in-out", // Transition for transform property
+                  transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", // Rotate based on isOpen state
+                }}
+              />
             </Button>
+            {isOpen && (
+              <Card
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                sx={{
+                  width: "60vw", // 75% of the viewport width
+                  height: "570",
+                  position: "absolute",
+                  top: "28%", // Position below the button
+                  left: "50%",
+                  transform: "translateX(-70%)", // Center horizontally
+                  marginTop: "1rem", // Space between button and card
+                  zIndex: 100,
+                  // clipPath: "inset(0 0 round 0 25px)", // Create a custom polygon shape
+                  // clipPath: "polygon(98% 0%, 100% 20%, 100% 100%, 2% 100%, 0% 80%, 0 0)",
+                  clipPath:
+                    "polygon(0 0, calc(100% - 35px) 0, 100% 35px, 100% 100%, 35px 100%, 0 calc(100% - 35px))",
+                }}
+              >
+                <CardContent>
+                  <MyCard />
+                </CardContent>
+              </Card>
+            )}
             <Button
               onClick={() => {}}
               sx={{
@@ -210,6 +268,7 @@ function ResponsiveAppBar() {
                 color: "white",
                 borderColor: "white",
                 display: "flex",
+                zIndex: "1",
                 "&:before": {
                   content: '""',
                   background: "#c7fdc9",

@@ -11,7 +11,7 @@ function Product() {
         maxWidth: "70vw",
         padding: "1rem", // Optional: Add padding
         marginTop: "25rem",
-        marginLeft: "-10%",
+        marginLeft: "-16%",
       }}
     >
       <Grid item xs={12} md={4}>

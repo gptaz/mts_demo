@@ -10,8 +10,8 @@ function Product() {
         height: "100vh", // Set height to view height or adjust as needed
         maxWidth: "70vw",
         padding: "1rem", // Optional: Add padding
-        paddingTop: "20rem",
-        marginLeft: "-15%",
+        marginTop: "25rem",
+        marginLeft: "-10%",
       }}
     >
       <Grid item xs={12} md={4}>
